@@ -110,8 +110,13 @@ export async function GET() {
       seedRevenue(),
     ]);
 
-    return Response.json({ message: 'Database seeded successfully' });
+    return new Response(JSON.stringify({ message: 'Database seeded successfully' }), {
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (error) {
-    return Response.json({ error }, { status: 500 });
+    return new Response(JSON.stringify({ error }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 }
