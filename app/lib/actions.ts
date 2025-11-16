@@ -7,7 +7,11 @@ import postgres from 'postgres';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 
-const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
+if (!process.env.POSTGRES_URL) {
+  throw new Error('POSTGRES_URL environment variable is not set');
+}
+
+const sql = postgres(process.env.POSTGRES_URL, { ssl: 'require' });
 
 const FormSchema = z.object({
   id: z.string(),
